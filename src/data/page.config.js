@@ -1,5 +1,5 @@
 /**
- * Vitrine : tous les types de blocs du registry + `sections` par route (voir api-lab/content.json).
+ * Vitrine : tous les types de blocs du registry + `sections` par route (voir api-erlow/content.json).
  */
 import { API_IMG_BASE } from '../config/remoteData'
 import { resolveForLocale } from '../utils/localeUtils'

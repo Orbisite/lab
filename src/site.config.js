@@ -1,5 +1,5 @@
 /**
- * Coquille du Lab (textes hors content.json).
+ * Coquille Erlow (textes hors content.json).
  */
 export const siteConfig = {
   defaultLocale: 'fr',
@@ -16,7 +16,7 @@ export const siteConfig = {
   },
 
   meta: {
-    title: 'Orbisite Lab',
+    title: 'Orbisite — Erlow',
     description: 'Vitrine multi-pages — tous les blocs @orbisite/blocks.',
     siteUrl: 'https://example.com',
   },

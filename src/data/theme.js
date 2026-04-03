@@ -199,7 +199,7 @@ const SEMANTIC_DEFAULTS_LIGHT = {
   elevatedShadow2xl: '0 25px 50px -12px rgb(15 23 42 / 0.12)',
 }
 
-/** Mêmes clés que `model/api-starter/theme.json` ; défauts selon luminance de `surface`. */
+/** Mêmes clés que l’API `theme.json` (erlow-api) ; défauts selon luminance de `surface`. */
 function buildSemanticVars(theme) {
   const d = surfaceIsLight(theme.surface) ? SEMANTIC_DEFAULTS_LIGHT : SEMANTIC_DEFAULTS_DARK
 
