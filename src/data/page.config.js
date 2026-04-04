@@ -102,6 +102,7 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         contentWidth: hero.contentWidth,
         sectionPadding: hero.sectionPadding,
         subtitleMaxWidth: hero.subtitleMaxWidth,
+        spaLinkComponent,
       },
     }),
     logoCloud: () => ({
@@ -326,6 +327,7 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         sectionPadding: ctaBanner.sectionPadding,
         contentWidth: ctaBanner.contentWidth,
         insetPadding: ctaBanner.insetPadding,
+        spaLinkComponent,
       },
     }),
     faq: () => ({

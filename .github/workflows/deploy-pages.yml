@@ -3,7 +3,7 @@
 #
 # Réglages : Settings → Pages → Source « GitHub Actions ».
 #
-# @orbisite/blocks : dépendance git https://github.com/Orbisite/blocks.git#v0.2.3 (npm ci, sans token).
+# @orbisite/blocks : dépendance git https://github.com/Orbisite/blocks.git#v0.2.6 (npm ci, sans token).
 name: Deploy GitHub Pages
 
 on:
