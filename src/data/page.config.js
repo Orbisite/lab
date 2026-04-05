@@ -63,7 +63,10 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
       props: {
         logo: nav.logo,
         logoSrc: images.logo,
-        links: nav.links,
+        links: (nav.links ?? []).map((link) => {
+          const { openInNewTab, targetBlank, ...rest } = link
+          return { ...rest, openInNewTab: openInNewTab ?? targetBlank }
+        }),
         ctaText: nav.cta,
         ctaHref: nav.ctaHref ?? '#contact',
         sticky: nav.sticky !== false,
@@ -78,8 +81,8 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         contentWidth: nav.contentWidth,
         linkDensity: nav.linkDensity,
         navPadding: nav.navPadding,
-        logoOpenInNewTab: nav.logoOpenInNewTab,
-        ctaOpenInNewTab: nav.ctaOpenInNewTab,
+        logoOpenInNewTab: nav.logoOpenInNewTab ?? nav.logoTargetBlank,
+        ctaOpenInNewTab: nav.ctaOpenInNewTab ?? nav.ctaTargetBlank,
       },
     }),
     hero: () => ({
@@ -105,7 +108,7 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         sectionPadding: hero.sectionPadding,
         subtitleMaxWidth: hero.subtitleMaxWidth,
         spaLinkComponent,
-        ctaOpenInNewTab: hero.ctaOpenInNewTab,
+        ctaOpenInNewTab: hero.ctaOpenInNewTab ?? hero.ctaTargetBlank,
       },
     }),
     logoCloud: () => ({
@@ -122,10 +125,14 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         titleSize: logoCloud.titleSize,
         logoSize: logoCloud.logoSize,
         grayscaleLogos: logoCloud.grayscaleLogos,
-        items: (logoCloud.items ?? []).map((item) => ({
-          ...item,
-          logoSrc: item.logoSrc ? r(item.logoSrc) : undefined,
-        })),
+        items: (logoCloud.items ?? []).map((item) => {
+          const { openInNewTab, targetBlank, ...rest } = item
+          return {
+            ...rest,
+            openInNewTab: openInNewTab ?? targetBlank,
+            logoSrc: item.logoSrc ? r(item.logoSrc) : undefined,
+          }
+        }),
       },
     }),
     stats: () => ({
@@ -218,10 +225,10 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         noteAlign: bento.noteAlign,
         sectionPadding: bento.sectionPadding,
         contentWidth: bento.contentWidth,
-        items: (bento.items ?? []).map((item, index) => ({
-          ...item,
-          imageUrl: images.bento?.[index],
-        })),
+        items: (bento.items ?? []).map((item, index) => {
+          const { openInNewTab, targetBlank, ...rest } = item
+          return { ...rest, openInNewTab: openInNewTab ?? targetBlank, imageUrl: images.bento?.[index] }
+        }),
       },
     }),
     simpleCards: () => ({
@@ -233,7 +240,10 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         subtitle: simpleCards.subtitle,
         color: simpleCards.color ?? 'primary',
         columns: simpleCards.columns,
-        items: simpleCards.items ?? [],
+        items: (simpleCards.items ?? []).map((item) => {
+          const { openInNewTab, targetBlank, ...rest } = item
+          return { ...rest, openInNewTab: openInNewTab ?? targetBlank }
+        }),
         sectionPadding: simpleCards.sectionPadding,
         headerAlign: simpleCards.headerAlign,
         titleSize: simpleCards.titleSize,
@@ -284,10 +294,14 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         gridGap: pricing.gridGap,
         sectionPadding: pricing.sectionPadding,
         contentWidth: pricing.contentWidth,
-        plans: (pricing.plans ?? []).map((plan) => ({
-          ...plan,
-          ctaHref: plan.ctaHref ?? pricing.planCtaHref ?? '#contact',
-        })),
+        plans: (pricing.plans ?? []).map((plan) => {
+          const { openInNewTab, targetBlank, ...rest } = plan
+          return {
+            ...rest,
+            openInNewTab: openInNewTab ?? targetBlank,
+            ctaHref: plan.ctaHref ?? pricing.planCtaHref ?? '#contact',
+          }
+        }),
       },
     }),
     testimonials: () => ({
@@ -331,8 +345,8 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         contentWidth: ctaBanner.contentWidth,
         insetPadding: ctaBanner.insetPadding,
         spaLinkComponent,
-        ctaOpenInNewTab: ctaBanner.ctaOpenInNewTab,
-        secondaryCtaOpenInNewTab: ctaBanner.secondaryCtaOpenInNewTab,
+        ctaOpenInNewTab: ctaBanner.ctaOpenInNewTab ?? ctaBanner.ctaTargetBlank,
+        secondaryCtaOpenInNewTab: ctaBanner.secondaryCtaOpenInNewTab ?? ctaBanner.secondaryCtaTargetBlank,
       },
     }),
     faq: () => ({
@@ -384,10 +398,14 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
         titleSize: team.titleSize,
         contentWidth: team.contentWidth,
         itemSurface: team.itemSurface,
-        members: (team.members ?? []).map((member) => ({
-          ...member,
-          avatarUrl: member.avatarSrc ? r(member.avatarSrc) : member.avatarUrl,
-        })),
+        members: (team.members ?? []).map((member) => {
+          const { openInNewTab, targetBlank, ...rest } = member
+          return {
+            ...rest,
+            openInNewTab: openInNewTab ?? targetBlank,
+            avatarUrl: member.avatarSrc ? r(member.avatarSrc) : member.avatarUrl,
+          }
+        }),
       },
     }),
     newsletter: () => ({
@@ -437,7 +455,7 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
             footer.links.map((l) => ({
               label: l.label,
               href: l.href ?? '#',
-              openInNewTab: l.openInNewTab,
+              openInNewTab: l.openInNewTab ?? l.targetBlank,
             }))
           : [
               { label: footer.privacy, href: footer.linkHrefs?.privacy ?? '#' },
@@ -449,7 +467,7 @@ export function buildPageConfig(content, locale = 'fr', onLocaleChange = () => {
             footer.socials.map((s) => ({
               label: s.label,
               href: s.href ?? '#',
-              openInNewTab: s.openInNewTab,
+              openInNewTab: s.openInNewTab ?? s.targetBlank,
             }))
           : [
               { label: 'X', href: '#' },
